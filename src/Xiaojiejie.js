@@ -16,12 +16,19 @@ export default class Xiaojiejie extends Component {
                         value={this.state.inputValue}
                         onChange={this.inputChange}
                     />
-                    <botton onClick={this.addList}>增加服务</botton>
+                    <button onClick={this.addList}>增加服务</button>
                 </div>
                 <ul>
                     {
                         this.state.list.map((item, index) => {
-                            return <li key={index}>{item}</li>
+                            return (
+                                <li 
+                                    key={index}
+                                    onClick={()=>{this.deleteItem(index)}}
+                                    >
+                                    {item}
+                                </li>
+                            )
                         })
                     }
                 </ul>
@@ -29,8 +36,6 @@ export default class Xiaojiejie extends Component {
         )
     }
     inputChange =  (e) => {
-        // console.log(e)
-        console.log(this)
         this.setState({
             inputValue: e.target.value
         })
@@ -39,7 +44,17 @@ export default class Xiaojiejie extends Component {
     // 增加列表的方法
     addList = () => {
         this.setState({
-            list: [...this.state.list, this.state.inputValue]
+            list: [...this.state.list, this.state.inputValue],
+            inputValue: ''
+        })
+    }
+    // 删除的方法
+    deleteItem = (index) => {
+        console.log(index)
+        let list = this.state.list
+        list.splice(index, 1)
+        this.setState({
+            list
         })
     }
 }
